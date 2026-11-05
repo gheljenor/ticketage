@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Тёплая бумага + тушь + терракотовый акцент */
+    --background: 40 30% 96%;
+    --foreground: 28 14% 13%;
+    --card: 40 35% 98%;
+    --card-foreground: 28 14% 13%;
+    --popover: 40 35% 98%;
+    --popover-foreground: 28 14% 13%;
+    --primary: 26 15% 17%;
+    --primary-foreground: 40 30% 96%;
+    --secondary: 36 20% 90%;
+    --secondary-foreground: 26 15% 17%;
+    --muted: 36 20% 91%;
+    --muted-foreground: 30 9% 40%;
+    --accent: 14 62% 42%;
+    --accent-foreground: 40 35% 97%;
+    --destructive: 0 62% 42%;
+    --destructive-foreground: 40 35% 97%;
+    --border: 34 16% 83%;
+    --input: 34 16% 80%;
+    --ring: 14 62% 42%;
+    --radius: 0.5rem;
+    --sidebar-background: 40 30% 96%;
+    --sidebar-foreground: 28 14% 13%;
+    --sidebar-primary: 26 15% 17%;
+    --sidebar-primary-foreground: 40 30% 96%;
+    --sidebar-accent: 36 20% 91%;
+    --sidebar-accent-foreground: 26 15% 17%;
+    --sidebar-border: 34 16% 83%;
+    --sidebar-ring: 14 62% 42%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply bg-background font-sans text-foreground;
+    font-feature-settings: 'kern';
+  }
+}
+
+/* Итоговая таблица — экран и печать */
+.result-table th,
+.result-table td {
+  border: 1px solid hsl(var(--border));
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: middle;
+}
+.result-table thead th {
+  background: hsl(var(--muted));
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: hsl(var(--muted-foreground));
+}
+.result-table .preview-cell {
+  padding: 4px;
+  text-align: center;
+}
+.result-table .preview-cell img {
+  width: 64px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 2px;
+  margin: 0 auto;
+  display: block;
+}
+
+/* Печать этикетажа и итоговой таблицы */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .labels-page,
+  .table-page {
+    background: #fff;
+  }
+  .labels-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 0 !important;
+  }
+  .label-card {
+    border: 1pt dashed #666 !important;
+    page-break-inside: avoid;
+  }
+  .result-table thead {
+    display: table-header-group;
+  }
+  .result-table tr {
+    page-break-inside: avoid;
+  }
+  .result-table th,
+  .result-table td {
+    border: 0.75pt solid #888;
+  }
+  .result-table thead th {
+    background: #eee !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+
+@page {
+  size: A4 portrait;
+  margin: 1.2cm;
+}
